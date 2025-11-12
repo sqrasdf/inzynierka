@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:projekt_inzynierka/sensor_card.dart';
+// import 'package:projekt_inzynierka/test_widgets.dart';
 
 void main() {
   runApp(const MyApp());
+  // runApp(AutoSenseApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -13,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Aplikacja edukacyjna',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true
+        useMaterial3: true,
       ),
       home: const HomePage(),
       debugShowCheckedModeBanner: false,
@@ -24,40 +27,39 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  // Lista 5 przykładowych modułów – treść uzupełnisz samodzielnie
   final List<ModuleData> modules = const [
     ModuleData(
       title: 'Moduł Sensory pojazdu',
       shortDescription:
-      'Przedstawia działanie czujników pojazdu (Radar, LIDAR, Kamera, Ultradźwięki) oraz ich dane w symulacji.',
+          'Przedstawia działanie czujników pojazdu (Radar, LIDAR, Kamera, Ultradźwięki) oraz ich dane w symulacji.',
       icon: Icons.sensors,
       backgroundColor: Color(0xFFE3F2FD),
     ),
     ModuleData(
       title: 'Moduł Strategie jazdy autonomicznej',
       shortDescription:
-      'Omawia algorytmy podejmowania decyzji przez pojazd autonomiczny i pozwala testować scenariusze zachowań AI.',
+          'Omawia algorytmy podejmowania decyzji przez pojazd autonomiczny i pozwala testować scenariusze zachowań AI.',
       icon: Icons.route,
       backgroundColor: Color(0xFFF3E5F5),
     ),
     ModuleData(
       title: 'Moduł Fuzja danych',
       shortDescription:
-      'Pokazuje, jak system łączy dane z różnych czujników w celu dokładniejszego rozpoznawania obiektów.',
+          'Pokazuje, jak system łączy dane z różnych czujników w celu dokładniejszego rozpoznawania obiektów.',
       icon: Icons.join_full,
       backgroundColor: Color(0xFFFFF3E0),
     ),
     ModuleData(
       title: 'Moduł Tryby poziomu autonomii',
       shortDescription:
-      'Wyjaśnia poziomy automatyzacji jazdy (0–5) z przykładami i quizem rozpoznawania poziomu.',
+          'Wyjaśnia poziomy automatyzacji jazdy (0–5) z przykładami i quizem rozpoznawania poziomu.',
       icon: Icons.speed,
       backgroundColor: Color(0xFFE8F5E9),
     ),
     ModuleData(
       title: 'Tryb Symulacji sytuacji drogowych',
       shortDescription:
-      'Umożliwia analizę i podejmowanie decyzji w realistycznych scenariuszach ruchu drogowego z udziałem AI.',
+          'Umożliwia analizę i podejmowanie decyzji w realistycznych scenariuszach ruchu drogowego z udziałem AI.',
       icon: Icons.traffic,
       backgroundColor: Color(0xFFFFEBEE),
     ),
@@ -71,12 +73,23 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
         elevation: 2,
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: modules.length,
-        itemBuilder: (context, index) {
-          final module = modules[index];
-          return ModuleBlock(module: module);
+      // body: ListView.builder(
+      //   padding: const EdgeInsets.all(16),
+      //   itemCount: modules.length,
+      //   itemBuilder: (context, index) {
+      //     final module = modules[index];
+      //     return ModuleBlock(module: module);
+      //   },
+      // ),
+      body: SensorCard(
+        icon: Icons.thermostat,
+        title: "Czujnik temperatury",
+        description:
+            "Monitoruje aktualną temperaturę otoczenia w czasie rzeczywistym.",
+        range: "0-100°C",
+        color: Colors.blue,
+        onTap: () {
+          print("Sensor card tapped!");
         },
       ),
     );
@@ -150,26 +163,22 @@ class ModuleBlock extends StatelessWidget {
               children: [
                 Text(
                   module.title,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   module.shortDescription,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.black87,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: Colors.black87),
                 ),
               ],
             ),
           ),
           // Strzałka wskazująca przejście
-          Icon(
-            Icons.arrow_forward_ios,
-            color: Colors.grey[600],
-            size: 20,
-          ),
+          Icon(Icons.arrow_forward_ios, color: Colors.grey[600], size: 20),
         ],
       ),
     );
